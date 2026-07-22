@@ -1,1 +1,2 @@
 .docker/certs/*.pem
+.history/
