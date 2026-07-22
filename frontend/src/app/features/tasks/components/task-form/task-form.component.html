@@ -1,0 +1,35 @@
+<form class="task-form" [formGroup]="taskForm" (ngSubmit)="submit()" novalidate>
+  <div class="field">
+    <label for="task-title">Nova tarefa</label>
+    <input
+      id="task-title"
+      type="text"
+      autocomplete="off"
+      maxlength="255"
+      placeholder="Ex.: Comprar mantimentos"
+      formControlName="title"
+      [attr.aria-invalid]="titleControl.invalid && titleControl.touched"
+      aria-describedby="task-title-help task-title-error task-title-submission-error"
+    />
+    <div class="field-meta">
+      <span id="task-title-help">Use até 255 caracteres.</span>
+      <span>{{ titleControl.value.length }}/255</span>
+    </div>
+    <div id="task-title-error" class="field-error" aria-live="polite">
+      @if (titleControl.touched && (titleControl.hasError('required') || titleControl.hasError('whitespace'))) {
+        Informe um título para a tarefa.
+      } @else if (titleControl.touched && titleControl.hasError('maxlength')) {
+        O título deve ter no máximo 255 caracteres.
+      }
+    </div>
+    <div id="task-title-submission-error" class="field-error" role="alert" aria-live="polite">
+      @if (submissionError) {
+        {{ submissionError }}
+      }
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="titleControl.invalid || isSubmitting">
+    {{ isSubmitting ? 'Adicionando…' : 'Adicionar tarefa' }}
+  </button>
+</form>

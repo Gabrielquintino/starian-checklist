@@ -1,0 +1,37 @@
+<main class="page-shell">
+  <header class="page-header">
+    <span class="eyebrow">Organização diária</span>
+    <h1>Checklist de tarefas</h1>
+    <p>Registre o que precisa ser feito e mantenha sua lista em ordem.</p>
+  </header>
+
+  <section class="panel" aria-labelledby="task-form-title">
+    <h2 id="task-form-title">Adicionar tarefa</h2>
+    <app-task-form
+      [isSubmitting]="isSubmitting"
+      [submissionError]="submitError"
+      (taskSubmitted)="createTask($event)"
+    />
+  </section>
+
+  <section class="panel" aria-live="polite" [attr.aria-busy]="isLoading">
+    @if (isLoading) {
+      <div class="loading" role="status">
+        <span class="spinner" aria-hidden="true"></span>
+        Carregando tarefas…
+      </div>
+    } @else if (loadError) {
+      <div class="load-error" role="alert">
+        <p>{{ loadError }}</p>
+        <button type="button" (click)="loadTasks()">Tentar novamente</button>
+      </div>
+    } @else {
+      <app-task-list
+        [tasks]="tasks"
+        [deletingTaskIds]="deletingTaskIds"
+        [deleteError]="deleteError"
+        (taskDeleted)="deleteTask($event)"
+      />
+    }
+  </section>
+</main>

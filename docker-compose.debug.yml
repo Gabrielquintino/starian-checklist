@@ -1,0 +1,10 @@
+services:
+  laravel:
+    image: starian-checklist-laravel-debug
+    build:
+      target: development
+    environment:
+      PHP_IDE_CONFIG: serverName=starian-backend
+      XDEBUG_MODE: ${XDEBUG_MODE:-debug,develop}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

@@ -1,0 +1,24 @@
+services:
+  angular-test:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: test
+      secrets:
+        - source: npm_ca
+    working_dir: /frontend
+    volumes:
+      - ./frontend:/frontend
+      - angular_test_node_modules:/frontend/node_modules
+    secrets:
+      - source: npm_ca
+        target: npm-ca.pem
+    environment:
+      NG_CLI_ANALYTICS: "false"
+      NODE_EXTRA_CA_CERTS: /run/secrets/npm-ca.pem
+      NPM_CONFIG_CAFILE: /run/secrets/npm-ca.pem
+      CHROME_BIN: /usr/bin/chromium
+    command: ["npm", "test"]
+
+volumes:
+  angular_test_node_modules:

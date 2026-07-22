@@ -1,0 +1,81 @@
+.task-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.field {
+  min-width: 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+input {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #aeb8ca;
+  border-radius: 0.55rem;
+  color: #172033;
+  background: #fff;
+}
+
+input:focus-visible,
+button:focus-visible {
+  outline: 3px solid #9bc2ff;
+  outline-offset: 2px;
+}
+
+input[aria-invalid='true'] {
+  border-color: #b42318;
+}
+
+.field-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.35rem;
+  color: #5b6475;
+  font-size: 0.82rem;
+}
+
+.field-error {
+  min-height: 1.3rem;
+  margin-top: 0.25rem;
+  color: #b42318;
+  font-size: 0.88rem;
+}
+
+button {
+  min-height: 2.75rem;
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 0.55rem;
+  color: #fff;
+  background: #2156a5;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: #174781;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@media (min-width: 40rem) {
+  .task-form {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+
+  button {
+    margin-top: 2rem;
+  }
+}

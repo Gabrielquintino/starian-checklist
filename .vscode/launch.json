@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen for Xdebug — Laravel Docker",
+      "type": "php",
+      "request": "launch",
+      "preLaunchTask": "Docker: iniciar ambiente debug",
+      "port": 9003,
+      "pathMappings": {
+        "/backend": "${workspaceFolder}/backend"
+      }
+    },
+    {
+      "name": "Angular — Chrome",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}/frontend",
+      "sourceMaps": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug full stack (Docker)",
+      "configurations": [
+        "Listen for Xdebug — Laravel Docker",
+        "Angular — Chrome"
+      ]
+    }
+  ]
+}

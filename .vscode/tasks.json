@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Docker: iniciar ambiente normal",
+      "type": "shell",
+      "command": "docker",
+      "args": ["compose", "up", "-d"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Docker: iniciar ambiente debug",
+      "type": "shell",
+      "command": "docker",
+      "args": ["compose", "-f", "docker-compose.yml", "-f", "docker-compose.debug.yml", "up", "-d", "--build"],
+      "problemMatcher": []
+    }
+  ]
+}

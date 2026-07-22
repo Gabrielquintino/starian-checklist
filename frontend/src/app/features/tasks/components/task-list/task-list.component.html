@@ -1,0 +1,39 @@
+<section aria-labelledby="task-list-title">
+  <header class="list-header">
+    <h2 id="task-list-title">Suas tarefas</h2>
+    <span>{{ tasks.length }} {{ tasks.length === 1 ? 'item' : 'itens' }}</span>
+  </header>
+
+  @if (deleteError) {
+    <p class="feedback feedback--error" role="alert">{{ deleteError }}</p>
+  }
+
+  @if (tasks.length === 0) {
+    <div class="empty-state">
+      <p>Nenhuma tarefa encontrada.</p>
+      <span>Adicione a primeira tarefa usando o formulário acima.</span>
+    </div>
+  } @else {
+    <ul class="task-list">
+      @for (task of tasks; track task.id) {
+        <li class="task-item" [class.task-item--completed]="task.completed">
+          <span class="task-title">
+            {{ task.title }}
+            @if (task.completed) {
+              <span class="visually-hidden">(concluída)</span>
+            }
+          </span>
+          <button
+            type="button"
+            class="remove-button"
+            [disabled]="deletingTaskIds.has(task.id)"
+            [attr.aria-label]="'Remover tarefa ' + task.title"
+            (click)="taskDeleted.emit(task.id)"
+          >
+            {{ deletingTaskIds.has(task.id) ? 'Removendo…' : 'Remover' }}
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</section>

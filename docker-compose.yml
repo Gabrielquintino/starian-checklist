@@ -1,0 +1,55 @@
+services:
+  laravel:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    working_dir: /backend
+    volumes:
+      - ./backend:/backend
+      - laravel_vendor:/backend/vendor
+    ports:
+      - "8000:8000"
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      DB_CONNECTION: sqlite
+      DB_DATABASE: /backend/database/database.sqlite
+      SESSION_DRIVER: file
+      CACHE_STORE: file
+      QUEUE_CONNECTION: sync
+    command: ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+
+  angular:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+      secrets:
+        - source: npm_ca
+    working_dir: /frontend
+    volumes:
+      - ./frontend:/frontend
+      - angular_node_modules:/frontend/node_modules
+    secrets:
+      - source: npm_ca
+        target: npm-ca.pem
+    ports:
+      - "4200:4200"
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      NG_CLI_ANALYTICS: "false"
+      NODE_EXTRA_CA_CERTS: /run/secrets/npm-ca.pem
+      NPM_CONFIG_CAFILE: /run/secrets/npm-ca.pem
+    command: ["npm", "run", "start", "--", "--host=0.0.0.0"]
+    stdin_open: true
+    tty: true
+
+volumes:
+  laravel_vendor:
+  angular_node_modules:
+
+secrets:
+  npm_ca:
+    file: ./.docker/certs/npm-ca.pem
