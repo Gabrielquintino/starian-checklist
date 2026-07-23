@@ -192,7 +192,7 @@ docs/
 
 As decisões arquiteturais, trade-offs, estratégia de testes, métricas, uso de IA e resultados detalhados estão documentados em:
 
-[Relatório Técnico de Refatoração Full Stack](docs/TECHNICAL_CASE_REPORT.pdf)
+[Relatório Técnico de Refatoração Full Stack](docs/TECHNICAL_CASE_REPORT.md)
 
 ## Uso de IA
 
